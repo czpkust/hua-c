@@ -1,0 +1,5 @@
+﻿subject,task,file_name,sample_rate_hz,channels,samples,duration_s,duration_min,all_values_finite,timestamp_continuous,timestamp_step_s,cue_trials,cue_left,cue_right,target_events,click_events,inferred_correct,inferred_incorrect,saturated_trials,rail_Fz_samples,rail_F3_samples,rail_F4_samples,channel9_label
+A,Task-1,VisualCogA_Task-1.mat,256.000000,10,223845,874.394531,14.573242,True,True,0.003906,100,54,46,100,0,100,0,13,0,4573,6711,Action:L-1/R+1
+A,Task-2,VisualCogA_Task-2.mat,256.000000,10,230157,899.050781,14.984180,True,True,0.003906,100,57,43,100,100,100,0,8,0,3277,1373,TgtAct:L-2/R+2
+B,Task-1,VisualCogB_Task-1.mat,256.000000,10,223005,871.113281,14.518555,True,True,0.003906,100,48,52,100,0,98,2,9,3745,2246,2921,Action:L-1/R+1
+B,Task-2,VisualCogB_Task-2.mat,256.000000,10,228330,891.914062,14.865234,True,True,0.003906,100,50,50,100,100,100,0,11,350,3293,5836,TgtAct:L-2/R+2
