@@ -1,0 +1,5 @@
+﻿file_name,subject,task,n_left,n_right,joint_12d_welch_statistic,permutation_p,fdr_q,significant_fdr_0_05
+VisualCogA_Task-1.mat,A,Task-1,43,42,20.793687,0.11994003,0.47976012,False
+VisualCogA_Task-2.mat,A,Task-2,52,40,8.37361624,0.549225387,0.68015992,False
+VisualCogB_Task-1.mat,B,Task-1,43,47,8.25091575,0.627186407,0.68015992,False
+VisualCogB_Task-2.mat,B,Task-2,42,47,6.92031542,0.68015992,0.68015992,False

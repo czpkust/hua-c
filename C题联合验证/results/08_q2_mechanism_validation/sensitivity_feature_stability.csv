@@ -1,0 +1,10 @@
+﻿variant,n_effects,correlation,sign_agreement,n_nominal_abs_g_ge_0p2,sign_agreement_abs_g_ge_0p2
+nominal,48,1,1,20,1
+all_tau_x0.8,48,0.87365431,0.854166667,20,1
+all_tau_x1.2,48,0.933205351,0.854166667,20,1
+late_tau_x0.8,48,0.966830977,0.875,20,1
+late_tau_x1.2,48,0.965671723,0.958333333,20,1
+ridge_0.1,48,0.955470465,0.9375,20,1
+ridge_10,48,0.868145567,0.875,20,0.95
+no_linear_trend,48,0.576009649,0.729166667,20,0.85
+no_extra_smoothing,48,0.986915406,0.958333333,20,1

@@ -1,0 +1,13 @@
+﻿check,passed,value
+A_Task-2_state_and_window_alignment,True,88
+B_Task-2_state_and_window_alignment,True,89
+A_Task-2_same_09_trend,True,2.91528059e-16
+A_Task-2_future_data_excluded,True,0
+A_Task-2_behavior_codes_unused,True,0
+B_Task-2_same_09_trend,True,3.65990932e-16
+B_Task-2_future_data_excluded,True,0
+B_Task-2_behavior_codes_unused,True,0
+within_A_Task-2_train_only_fit_and_scale,True,0
+within_B_Task-2_train_only_fit_and_scale,True,0
+cross_Task-2_train_only_fit_and_scale,True,0
+mirror_memory_encoding,True,4.4408921e-16

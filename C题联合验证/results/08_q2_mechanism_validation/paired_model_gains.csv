@@ -1,0 +1,13 @@
+﻿variant,file,comparison,extended_model,reference_model,delta_r2,sse_reduction_pct
+nominal,A_Task-1,basis_added_shared,basis_shared,trend_shared,0.0696470073,2.78889662
+nominal,A_Task-1,direction_added_basis,basis_direction,basis_shared,-0.122200908,-5.03371374
+nominal,A_Task-1,basis_added_direction,basis_direction,trend_direction,0.0555769667,2.13312316
+nominal,A_Task-2,basis_added_shared,basis_shared,trend_shared,0.124054948,20.8497025
+nominal,A_Task-2,direction_added_basis,basis_direction,basis_shared,-0.0685405101,-14.5539391
+nominal,A_Task-2,basis_added_direction,basis_direction,trend_direction,0.114415464,17.4974676
+nominal,B_Task-1,basis_added_shared,basis_shared,trend_shared,-0.0158865225,-0.670483068
+nominal,B_Task-1,direction_added_basis,basis_direction,basis_shared,-0.148078541,-6.2079605
+nominal,B_Task-1,basis_added_direction,basis_direction,trend_direction,-0.016368129,-0.650300162
+nominal,B_Task-2,basis_added_shared,basis_shared,trend_shared,0.157816696,23.0988635
+nominal,B_Task-2,direction_added_basis,basis_direction,basis_shared,-0.0112404131,-2.1393763
+nominal,B_Task-2,basis_added_direction,basis_direction,trend_direction,0.147976058,21.6142542

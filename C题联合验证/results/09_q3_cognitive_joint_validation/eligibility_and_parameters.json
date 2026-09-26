@@ -1,0 +1,42 @@
+{
+  "task1": "No verified ±2 click: cannot set 100 ms pre-response cutoff",
+  "task2": [
+    {
+      "file": "A_Task-2",
+      "q2_accepted": 92,
+      "long_window_accepted": 88,
+      "exclusions": [
+        [
+          31,
+          "additional_artifact_in_long_window"
+        ],
+        [
+          34,
+          "additional_artifact_in_long_window"
+        ],
+        [
+          35,
+          "additional_artifact_in_long_window"
+        ],
+        [
+          68,
+          "additional_artifact_in_long_window"
+        ]
+      ]
+    },
+    {
+      "file": "B_Task-2",
+      "q2_accepted": 89,
+      "long_window_accepted": 89,
+      "exclusions": []
+    }
+  ],
+  "window_end": "click - 0.1 s",
+  "fs": 256,
+  "ridge": 5.0,
+  "reference": "08 nominal four-stage basis and 08 same five chronological 20-trial blocks, ±2 trial purge",
+  "filter": "within-trial prefix through cutoff only: 0.5-30 Hz order-4 zero-phase",
+  "marker_relation": "cue sign × Task-2 channel-9 ±1 sign; behavioral accuracy unknown",
+  "basis": "Q2 visual [four states] + target-locked two stages + candidate late context and cue-target relation",
+  "interpretation": "functional proxy only; LGN/hippocampus locations not identifiable from F3/Fz/F4"
+}

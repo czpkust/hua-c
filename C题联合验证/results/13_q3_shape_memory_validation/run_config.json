@@ -1,0 +1,42 @@
+{
+  "parameters": {
+    "memory_tau_s": 1.5,
+    "reactivation_tau_s": 0.25,
+    "short_memory_tau_s": 0.15,
+    "ridge": 0.1,
+    "cutoff_before_click_s": 0.1,
+    "decimate": 4,
+    "target_probe_s": 3.0
+  },
+  "primary_model": "shape_memory",
+  "exploratory": true,
+  "script_sha256": "bba520354ae4a760150872dff4e731d126f486a0102726529b04645b77e63bc6",
+  "parent09_sha256": "6dcf5762c019e34c739ea2d31332a89cc4ca4afedc97d71c6cfcb9b03fd22197",
+  "parent08_sha256": "7b1b2ad7b47028220ddd3e18ebbab78035efff91b4fc5ddc7f2f9a0c9a2a82c1",
+  "python": "3.13.7",
+  "numpy": "2.3.3",
+  "event_inputs": [
+    "cue direction",
+    "cue time",
+    "target onset time",
+    "click time for cutoff only"
+  ],
+  "unused_event_values": [
+    "target sign",
+    "click side",
+    "behavioral correctness"
+  ],
+  "validation": "5 original 20-trial blocks with two-trial purge; A-to-B and B-to-A",
+  "scaling": "nominal training-only RMS reused by all variants",
+  "formal_significance_test": false,
+  "inputs": {
+    "results\\12_q2_shape_driven_model\\simulation_shape_wc.npz": "e6a8d1acc861e2de7b9bee4465b1b6d88874ba8e2612e84f37d2e664a43a393f",
+    "results\\12_q2_shape_driven_model\\run_config.json": "9d9dac366f1668b3da86084d36b31e5fb5bbec7ca957b1204235db2f7434c0e0",
+    "data\\processed\\trial_info.csv": "b2f6c6c62876e315708b4b1cdaadedbc1ca7d1e6b420287c5ed5d40bad2ad00f",
+    "data\\raw\\VisualCogA_Task-2.mat": "c120ef16ed6bd1a2f1e86e0ab030c6306d08e555a71359cf455744a9904cb748",
+    "data\\raw\\VisualCogB_Task-2.mat": "c58c998880682027119548029ba92240604b9ecf4138e6c4ea3efe4522212e9d",
+    "data\\processed\\erp_epochs\\A_Task-2_erp_epochs.npz": "986904d3300ecdc064195836bd19fb56bac1fd74f16b379bafa509495089e903",
+    "data\\processed\\erp_epochs\\B_Task-2_erp_epochs.npz": "f98896083e276fc046492c2cd652f8951212ddb9d8639713ff9b352483127d90"
+  },
+  "parent12_sha256": "354dede759c6bf2c20b180f737e11a534b2c797f4584509507a9876d85e0e87c"
+}

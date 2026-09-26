@@ -1,0 +1,156 @@
+{
+  "script": "08_q2_mechanism_validation.py",
+  "seed": 20260924,
+  "project_root": "C:\\C\\C题联合验证",
+  "n_permutations": 1999,
+  "elapsed_seconds": 121.62630449999415,
+  "fit_window_s": [
+    0.0,
+    0.9
+  ],
+  "block_size": 20,
+  "purge_original_trials_each_side": 2,
+  "basis_delay_s": 0.035,
+  "nominal_taus_s": [
+    0.015,
+    0.035,
+    0.05,
+    0.15
+  ],
+  "filter_orders": [
+    2,
+    3,
+    4,
+    3
+  ],
+  "basis_normalization": "unit peak on full epoch",
+  "settings": [
+    {
+      "name": "nominal",
+      "tau_scale": 1.0,
+      "late_scale": 1.0,
+      "ridge_alpha": 1.0,
+      "linear_trend": true,
+      "smooth_s": 0.08
+    },
+    {
+      "name": "all_tau_x0.8",
+      "tau_scale": 0.8,
+      "late_scale": 1.0,
+      "ridge_alpha": 1.0,
+      "linear_trend": true,
+      "smooth_s": 0.08
+    },
+    {
+      "name": "all_tau_x1.2",
+      "tau_scale": 1.2,
+      "late_scale": 1.0,
+      "ridge_alpha": 1.0,
+      "linear_trend": true,
+      "smooth_s": 0.08
+    },
+    {
+      "name": "late_tau_x0.8",
+      "tau_scale": 1.0,
+      "late_scale": 0.8,
+      "ridge_alpha": 1.0,
+      "linear_trend": true,
+      "smooth_s": 0.08
+    },
+    {
+      "name": "late_tau_x1.2",
+      "tau_scale": 1.0,
+      "late_scale": 1.2,
+      "ridge_alpha": 1.0,
+      "linear_trend": true,
+      "smooth_s": 0.08
+    },
+    {
+      "name": "ridge_0.1",
+      "tau_scale": 1.0,
+      "late_scale": 1.0,
+      "ridge_alpha": 0.1,
+      "linear_trend": true,
+      "smooth_s": 0.08
+    },
+    {
+      "name": "ridge_10",
+      "tau_scale": 1.0,
+      "late_scale": 1.0,
+      "ridge_alpha": 10.0,
+      "linear_trend": true,
+      "smooth_s": 0.08
+    },
+    {
+      "name": "no_linear_trend",
+      "tau_scale": 1.0,
+      "late_scale": 1.0,
+      "ridge_alpha": 1.0,
+      "linear_trend": false,
+      "smooth_s": 0.08
+    },
+    {
+      "name": "no_extra_smoothing",
+      "tau_scale": 1.0,
+      "late_scale": 1.0,
+      "ridge_alpha": 1.0,
+      "linear_trend": true,
+      "smooth_s": 0.0
+    }
+  ],
+  "feature_names": [
+    "stage_1/Fz",
+    "stage_1/F3",
+    "stage_1/F4",
+    "stage_2/Fz",
+    "stage_2/F3",
+    "stage_2/F4",
+    "stage_3/Fz",
+    "stage_3/F3",
+    "stage_3/F4",
+    "stage_4/Fz",
+    "stage_4/F3",
+    "stage_4/F4"
+  ],
+  "targets": "03 preprocessed epochs; no extra smoothing of validation targets",
+  "labels": "cue direction: L=0, R=1",
+  "classifier": "StandardScaler + LogisticRegression",
+  "classifier_parameters": {
+    "C": 0.1,
+    "class_weight": "balanced",
+    "solver": "liblinear",
+    "max_iter": 2000
+  },
+  "permutation": "shuffle labels within each file and original 20-trial block; refit all folds",
+  "fdr_family": "7 prespecified-in-this-script balanced accuracy tests; prior explorations excluded",
+  "versions": {
+    "python": "3.13.7",
+    "numpy": "2.3.3",
+    "scipy": "1.16.3",
+    "pandas": "2.3.3",
+    "matplotlib": "3.10.6",
+    "sklearn": "1.7.2"
+  },
+  "inputs": [
+    {
+      "file": "C:\\C\\C题联合验证\\data\\processed\\erp_epochs\\A_Task-1_erp_epochs.npz",
+      "sha256": "f10902b95eb0dfa208b5e4dbaddeff3d137fc5ae377a6f32981ca8daf4f2c8c1",
+      "accepted_n": 85
+    },
+    {
+      "file": "C:\\C\\C题联合验证\\data\\processed\\erp_epochs\\A_Task-2_erp_epochs.npz",
+      "sha256": "986904d3300ecdc064195836bd19fb56bac1fd74f16b379bafa509495089e903",
+      "accepted_n": 92
+    },
+    {
+      "file": "C:\\C\\C题联合验证\\data\\processed\\erp_epochs\\B_Task-1_erp_epochs.npz",
+      "sha256": "33615ac572e85468279e1aea27e1b76276ebcbbfeaec195b087dde8898637752",
+      "accepted_n": 90
+    },
+    {
+      "file": "C:\\C\\C题联合验证\\data\\processed\\erp_epochs\\B_Task-2_erp_epochs.npz",
+      "sha256": "f98896083e276fc046492c2cd652f8951212ddb9d8639713ff9b352483127d90",
+      "accepted_n": 89
+    }
+  ]
+}

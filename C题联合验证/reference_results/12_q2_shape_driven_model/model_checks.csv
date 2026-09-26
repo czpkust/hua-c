@@ -1,0 +1,9 @@
+﻿check,value,upper_limit,passed
+mirror_pixels_exact,0,1e-12,True
+mirror_spatial_features,3.33066907e-16,1e-10,True
+mirror_dynamics,4.85722573e-17,1e-10,True
+symmetric_readout_cancels_LR,3.4283687e-13,1e-10,True
+shape_blind_LR_equal,0,1e-12,True
+half_step_relative_error,3.65533916e-09,1e-05,True
+feedback_changes_simulated_response,0.505784414,,True
+simulation_tail_relative_amplitude,5.03371631e-10,0.001,True

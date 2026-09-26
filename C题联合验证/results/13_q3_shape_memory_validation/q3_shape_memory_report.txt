@@ -1,0 +1,140 @@
+问题三：连接第12步视觉网络的记忆维持与目标后再激活候选模型
+========================================================================
+状态：探索性、离线、已知提示与目标时刻的脑电条件预测。没有新增行为正确答案。
+
+一、数据与截止点
+仅Task-2有可用的真实±2点击事件；Task-1不能设置可信的应答前100ms终点。
+复用09逐试次截止点内滤波：从提示前0.5s到点击前约0.1s，0.5–30Hz四阶零相位带通。
+零相位滤波不读取截止点及以后的原始数据；基线、降采样、长窗饱和筛选均与09相同。
+实际最后一个输入样本距点击至少100ms，抽样后可能更早；仍无法排除更早的运动准备。
+  A_Task-2: 03保留92，额外长窗排除4，分析88次。
+  B_Task-2: 03保留89，额外长窗排除0，分析89次。
+
+二、与第二问连接的模型
+直接读取12的simulation_shape_wc.npz，验证脚本指纹；提示图形、空间编码、36组E/I网络参数保持不变。
+提示视觉观测：沿用12的6个功能池原始读出，按本试次截止点内的观测滤波重处理。
+目标输入：同一视觉网络仅延长外部刺激为3s，网络参数不变；使用两种图形响应的平均作为非定向探测。
+目标实际分析段均短于模拟长度；此处是目标持续显示的候选简化，未声称复刻双目标逐像素空间布局。
+目标的中继均值和读出均值构成2个基线状态；不使用目标标记正负号或点击方向。
+记忆输入u_j(t)：12兴奋群体高于静息态的部分，与第j种固定图形空间特征加权汇聚。
+tau_M M_j'=-M_j+u_j(t)，j=L/R；M表示形状相关的候选痕迹。
+tau_C C_j'=-C_j+M_j(t)*g_target(t)，C表示目标门控的候选再激活。
+固定tau_M=1.5s，tau_C=0.25s；不是辨识出的真实海马时间常数。
+观测：EEG=截距+线性趋势+6个提示视觉池+2个目标状态+2个M状态+2个C状态的线性混合。
+所有潜在分量与EEG接受同一截止点内观测滤波；只在训练试次估计有效混合系数。
+这是聚合状态之间的宏观候选网络，不进行脑源定位，也未实现或验证题目参考文献中的theta–gamma耦合机制。
+本模型实现提示信息维持和目标后再激活；因缺少实际目标图形/正确答案日志，未验证真实匹配判断或错误决策。
+
+三、对照与验证规则
+trend：训练截距与线性趋势；shape_visual：再加6个提示视觉池；shape_target：再加2个目标状态。
+memory_only：shape_target再加2个M；shape_memory：再加2个C，为固定主模型。
+memory_blind：将两个形状编码输入取平均，抹去记忆中的方向信息；视觉输入仍保持真实提示方向。
+short_memory：记忆时间常数改为0.15s，其他设置不变。
+记忆时间常数×0.8/×1.2敏感性全部报告，不从结果中选最优主模型。
+各折仅用名义模型训练数据计算一套RMS缩放，并在所有对照/敏感性中复用，避免单独缩放抹去衰减差异。
+拟合损失为逐采样点平均平方误差+0.1×缩放后神经状态系数平方和，截距/趋势不罚。
+同09/12原编号20次一块，训练额外排除测试块两侧2次；另执行A->B、B->A严格跨被试预测。
+长窗口含更多采样点，拟合与汇总SSE中权重相应更大。全部保留试次均恰好留出一次/每类验证。
+主评价窗口：目标后50ms至截止点；另报告提示后50–900ms、1s至目标前50ms、全部应答前窗口。
+skill=1-SSE_model/SSE_训练趋势基线；该误差改进分数不是普通R²。正值表示优于可训练基线。
+CSV另给按各试次/通道时间均值中心化的描述性R²；不能与12条件平均波形的R²直接比较。
+重叠训练折不作为独立被试；本次不提供未经论证的记忆效应p值，也不将方向打乱对照冒充独立行为验证。
+
+四、主窗口的留出结果
+[within_A_Task-2 / 测试A_Task-2]
+  trend            RMSE=37.7350；相对训练趋势误差改进=+0.000%
+  shape_visual     RMSE=37.7217；相对训练趋势误差改进=+0.071%
+  shape_target     RMSE=37.8601；相对训练趋势误差改进=-0.664%
+  memory_only      RMSE=37.8283；相对训练趋势误差改进=-0.495%
+  shape_memory     RMSE=37.9262；相对训练趋势误差改进=-1.016%
+  memory_blind     RMSE=37.9324；相对训练趋势误差改进=-1.049%
+  short_memory     RMSE=37.9088；相对训练趋势误差改进=-0.923%
+  memory_added           SSE减少=-0.350%；改善试次32/88；改善测试块1/5
+  reactivation_added     SSE减少=-0.518%；改善试次28/88；改善测试块1/5
+  directional_memory     SSE减少=+0.032%；改善试次42/88；改善测试块3/5
+  long_vs_short_memory   SSE减少=-0.092%；改善试次45/88；改善测试块3/5
+[within_B_Task-2 / 测试B_Task-2]
+  trend            RMSE=41.3620；相对训练趋势误差改进=+0.000%
+  shape_visual     RMSE=41.3332；相对训练趋势误差改进=+0.139%
+  shape_target     RMSE=41.6072；相对训练趋势误差改进=-1.189%
+  memory_only      RMSE=41.5682；相对训练趋势误差改进=-0.999%
+  shape_memory     RMSE=41.6049；相对训练趋势误差改进=-1.178%
+  memory_blind     RMSE=41.6397；相对训练趋势误差改进=-1.347%
+  short_memory     RMSE=41.6532；相对训练趋势误差改进=-1.413%
+  memory_added           SSE减少=+0.011%；改善试次48/89；改善测试块2/5
+  reactivation_added     SSE减少=-0.177%；改善试次37/89；改善测试块2/5
+  directional_memory     SSE减少=+0.167%；改善试次48/89；改善测试块4/5
+  long_vs_short_memory   SSE减少=+0.231%；改善试次47/89；改善测试块3/5
+[cross_Task-2 / 测试A_Task-2]
+  trend            RMSE=39.4266；相对训练趋势误差改进=+0.000%
+  shape_visual     RMSE=39.5800；相对训练趋势误差改进=-0.779%
+  shape_target     RMSE=40.1533；相对训练趋势误差改进=-3.720%
+  memory_only      RMSE=40.0867；相对训练趋势误差改进=-3.376%
+  shape_memory     RMSE=40.2644；相对训练趋势误差改进=-4.295%
+  memory_blind     RMSE=40.2483；相对训练趋势误差改进=-4.212%
+  short_memory     RMSE=40.3778；相对训练趋势误差改进=-4.883%
+  memory_added           SSE减少=-0.554%；改善试次39/88；改善测试块0/1
+  reactivation_added     SSE减少=-0.888%；改善试次25/88；改善测试块0/1
+  directional_memory     SSE减少=-0.080%；改善试次40/88；改善测试块0/1
+  long_vs_short_memory   SSE减少=+0.561%；改善试次50/88；改善测试块1/1
+[cross_Task-2 / 测试B_Task-2]
+  trend            RMSE=42.4923；相对训练趋势误差改进=+0.000%
+  shape_visual     RMSE=42.3272；相对训练趋势误差改进=+0.775%
+  shape_target     RMSE=42.2546；相对训练趋势误差改进=+1.115%
+  memory_only      RMSE=42.2634；相对训练趋势误差改进=+1.074%
+  shape_memory     RMSE=42.2676；相对训练趋势误差改进=+1.054%
+  memory_blind     RMSE=42.2682；相对训练趋势误差改进=+1.052%
+  short_memory     RMSE=42.1509；相对训练趋势误差改进=+1.600%
+  memory_added           SSE减少=-0.062%；改善试次52/89；改善测试块0/1
+  reactivation_added     SSE减少=-0.020%；改善试次37/89；改善测试块0/1
+  directional_memory     SSE减少=+0.003%；改善试次50/89；改善测试块1/1
+  long_vs_short_memory   SSE减少=-0.555%；改善试次41/89；改善测试块0/1
+
+主模型相对shape_target：记录内改善1/2份；跨被试改善0/2个方向。
+新增候选记忆状态没有在记录内及跨被试验证中取得一致改善；不能写成记忆/海马机制已验证。
+
+五、记忆时间常数敏感性（主窗口）
+  nominal            within_A_Task-2/A_Task-2: RMSE=37.9262, skill=-1.016%
+  nominal            within_B_Task-2/B_Task-2: RMSE=41.6049, skill=-1.178%
+  nominal            cross_Task-2/A_Task-2: RMSE=40.2644, skill=-4.295%
+  nominal            cross_Task-2/B_Task-2: RMSE=42.2676, skill=+1.054%
+  memory_tau_x0.8    within_A_Task-2/A_Task-2: RMSE=37.9142, skill=-0.952%
+  memory_tau_x0.8    within_B_Task-2/B_Task-2: RMSE=41.5966, skill=-1.138%
+  memory_tau_x0.8    cross_Task-2/A_Task-2: RMSE=40.2481, skill=-4.210%
+  memory_tau_x0.8    cross_Task-2/B_Task-2: RMSE=42.2578, skill=+1.101%
+  memory_tau_x1.2    within_A_Task-2/A_Task-2: RMSE=37.9357, skill=-1.067%
+  memory_tau_x1.2    within_B_Task-2/B_Task-2: RMSE=41.6118, skill=-1.211%
+  memory_tau_x1.2    cross_Task-2/A_Task-2: RMSE=40.2763, skill=-4.356%
+  memory_tau_x1.2    cross_Task-2/B_Task-2: RMSE=42.2736, skill=+1.027%
+
+六、自动检查
+  PASS A_Task-2_state_and_window_alignment: 88
+  PASS B_Task-2_state_and_window_alignment: 89
+  PASS A_Task-2_same_09_trend: 2.91528e-16
+  PASS A_Task-2_future_data_excluded: 0
+  PASS A_Task-2_behavior_codes_unused: 0
+  PASS B_Task-2_same_09_trend: 3.65991e-16
+  PASS B_Task-2_future_data_excluded: 0
+  PASS B_Task-2_behavior_codes_unused: 0
+  PASS within_A_Task-2_train_only_fit_and_scale: 0
+  PASS within_B_Task-2_train_only_fit_and_scale: 0
+  PASS cross_Task-2_train_only_fit_and_scale: 0
+  PASS mirror_memory_encoding: 4.44089e-16
+PASS表示代码约束成立，不表示新增状态有统计显著性或真实解剖对应。
+
+七、三问完成范围
+问题一：仍按10–11的注入/强度实验描述保形能力和信号条件；本步不改变第一问结论。
+问题二：12给出形状驱动网络与候选方向表示；本步复用网络不代表其方向识别已可靠。
+问题三：已有可执行的视觉-维持-再激活宏观候选链条、真实点击前窗口、消融和跨被试验证。
+缺少可核验正确目标、错误/遗漏应答日志；不能从±1与±2同号推导正确率，也不能验证错误认知模型。
+仅三个额区电极、两名被试，不能唯一定位海马/LGN、确立认知因果机制或支持临床诊断。
+分析以03既定保留数据为条件；模型在已见数据上继续提出，属于探索性回顾分析。
+截止点由实际点击确定，预测是离线条件脑电重建，不是提前预测点击时刻或实时脑机接口性能。
+后续应按这些证据范围组织三问答案；任何强于数据支持的结论都需要额外独立观测。
+
+参考背景（本脚本为简化候选状态模型，不是以下模型逐式复现）：
+Daume et al. (2024), Nature 629:393–401. DOI:10.1038/s41586-024-07309-z.
+Compte et al. (2000), Cerebral Cortex 10:910–923. DOI:10.1093/cercor/10.9.910.
+视觉网络参考及固定参数见第12步报告。
+
+运行耗时：9.5秒。

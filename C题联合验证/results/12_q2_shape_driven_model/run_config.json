@@ -1,0 +1,61 @@
+{
+  "parameters": {
+    "grid_size": 65,
+    "dog_sigma_pixels": [
+      1.0,
+      2.0
+    ],
+    "rf_radius": 0.3,
+    "tau_g": 0.02,
+    "tau_e": 0.025,
+    "tau_i": 0.05,
+    "tau_readout_1": 0.06,
+    "tau_readout_2": 0.1,
+    "w_ee": 8.0,
+    "w_ei": 10.0,
+    "w_ie": 10.0,
+    "w_ii": 2.0,
+    "lateral_gain": 0.8,
+    "input_gain": 4.0,
+    "threshold_e": 4.0,
+    "threshold_i": 4.0,
+    "delay_s": 0.035,
+    "pulse_s": 0.2,
+    "ridge": 0.1,
+    "integration_substeps": 8
+  },
+  "n_permutations": 1999,
+  "exploratory": true,
+  "python": "3.13.7",
+  "numpy": "2.3.3",
+  "scipy": "1.16.3",
+  "script_sha256": "354dede759c6bf2c20b180f737e11a534b2c797f4584509507a9876d85e0e87c",
+  "validation_script_sha256": "7b1b2ad7b47028220ddd3e18ebbab78035efff91b4fc5ddc7f2f9a0c9a2a82c1",
+  "primary_model": "shape_wc",
+  "block_size": 20,
+  "purge_trials": 2,
+  "permutation_seed_rule": "08.seed_for(evaluation); 08.SEED=20260924",
+  "parameter_status": "fixed candidate assumptions; not fitted biological parameters",
+  "inputs": [
+    {
+      "file": "A_Task-1",
+      "sha256": "f10902b95eb0dfa208b5e4dbaddeff3d137fc5ae377a6f32981ca8daf4f2c8c1",
+      "n_trials": 85
+    },
+    {
+      "file": "A_Task-2",
+      "sha256": "986904d3300ecdc064195836bd19fb56bac1fd74f16b379bafa509495089e903",
+      "n_trials": 92
+    },
+    {
+      "file": "B_Task-1",
+      "sha256": "33615ac572e85468279e1aea27e1b76276ebcbbfeaec195b087dde8898637752",
+      "n_trials": 90
+    },
+    {
+      "file": "B_Task-2",
+      "sha256": "f98896083e276fc046492c2cd652f8951212ddb9d8639713ff9b352483127d90",
+      "n_trials": 89
+    }
+  ]
+}

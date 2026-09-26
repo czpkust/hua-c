@@ -1,0 +1,5 @@
+﻿file_name,subject,task,total_trials,rejected_edge,rejected_saturation_or_nonfinite,rejected_residual_artifact,accepted_trials,total_L,accepted_L,total_R,accepted_R
+VisualCogA_Task-1.mat,A,Task-1,100,0,13,2,85,54,43,46,42
+VisualCogA_Task-2.mat,A,Task-2,100,0,8,0,92,57,52,43,40
+VisualCogB_Task-1.mat,B,Task-1,100,0,9,1,90,48,43,52,47
+VisualCogB_Task-2.mat,B,Task-2,100,0,11,0,89,50,42,50,47

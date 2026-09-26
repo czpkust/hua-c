@@ -1,0 +1,62 @@
+C题问题2第一阶段：多通道特征表示与跨被试验证报告
+====================================================================
+
+一、数据与特征
+清洁试验数：356
+候选特征数：139
+每个被试-任务-方向的最少试验数：40
+输入通道：仅Fz、F3、F4；未使用FzDecon、F3Decon、F4Decon。
+标签方向：L=0，R=1；标签只用于训练和评估，不参与特征构造。
+
+二、验证设计
+外部验证：A训练/B测试与B训练/A测试。
+内部选择：仅在训练被试内用5折分层交叉验证选择特征数和L2正则化强度。
+比较口径：time_only、time_plus_spectral、full_multichannel三组均完整报告。
+置换检验：在被试-任务层内置换真实标签2000次。
+
+三、双向跨被试汇总
+[Task-1 | time_only] n=175, BAC=0.5201 (95% CI 0.4462-0.5959), AUC=0.5253, F1=0.5227, MCC=0.0401, permutation p=0.3198
+[Task-1 | time_plus_spectral] n=175, BAC=0.5203 (95% CI 0.4462-0.5949), AUC=0.5050, F1=0.5172, MCC=0.0405, permutation p=0.3088
+[Task-1 | full_multichannel] n=175, BAC=0.5069 (95% CI 0.4367-0.5797), AUC=0.4999, F1=0.5567, MCC=0.0140, permutation p=0.4693
+[Task-2 | time_only] n=181, BAC=0.4801 (95% CI 0.4090-0.5518), AUC=0.4757, F1=0.5274, MCC=-0.0411, permutation p=0.6842
+[Task-2 | time_plus_spectral] n=181, BAC=0.5242 (95% CI 0.4537-0.5987), AUC=0.4989, F1=0.5057, MCC=0.0483, permutation p=0.2244
+[Task-2 | full_multichannel] n=181, BAC=0.5114 (95% CI 0.4432-0.5835), AUC=0.4930, F1=0.4699, MCC=0.0229, permutation p=0.4723
+[Pooled | time_only] n=356, BAC=0.4976 (95% CI 0.4440-0.5489), AUC=0.5216, F1=0.5123, MCC=-0.0048, permutation p=0.4863
+[Pooled | time_plus_spectral] n=356, BAC=0.4975 (95% CI 0.4465-0.5482), AUC=0.4908, F1=0.5069, MCC=-0.0051, permutation p=0.4683
+[Pooled | full_multichannel] n=356, BAC=0.5148 (95% CI 0.4629-0.5666), AUC=0.5018, F1=0.5411, MCC=0.0298, permutation p=0.3058
+
+四、主结果判读
+主模型（Pooled | full_multichannel）BAC=0.5148, 95% CI 0.4629-0.5666, AUC=0.5018, permutation p=0.3058。
+主模型尚未形成显著的跨被试区分证据；应如实报告，并把特征表示解释为候选机制特征，而非已验证生物标志物。
+本轮最高BAC来自 Task-2 | time_plus_spectral：BAC=0.5242, p=0.2244。
+
+五、描述性稳定特征（不用于替代外部验证）
+Task-1：
+  time__Fz__late_550_900ms__negative_peak_latency_s: g_A=-0.300, g_B=-0.314, conservative |g|=0.300
+  spectral__F4__alpha_8_13Hz__change_db: g_A=-0.300, g_B=-0.268, conservative |g|=0.268
+  laterality_spectral__F4_minus_F3__beta_13_30Hz__change_db: g_A=-0.265, g_B=-0.395, conservative |g|=0.265
+  coupling__F3_F4__full_0_900ms__zero_lag_correlation: g_A=+0.325, g_B=+0.263, conservative |g|=0.263
+  laterality_time__F4_minus_F3__late_550_900ms__peak_to_peak: g_A=-0.262, g_B=-0.271, conservative |g|=0.262
+Task-2：
+  laterality_spectral__F4_minus_F3__theta_4_8Hz__change_db: g_A=-0.246, g_B=-0.396, conservative |g|=0.246
+  coupling__Fz_F3__early_250_500ms__zero_lag_correlation: g_A=-0.238, g_B=-0.633, conservative |g|=0.238
+  time__F3__early_250_500ms__negative_peak: g_A=+0.215, g_B=+0.205, conservative |g|=0.205
+  coupling__F3_F4__late_550_900ms__zero_lag_correlation: g_A=+0.198, g_B=+0.417, conservative |g|=0.198
+  time__Fz__early_250_500ms__negative_peak: g_A=+0.205, g_B=+0.195, conservative |g|=0.195
+
+自动验收
+--------------------------------------------------------------------
+PASS  应读取问题一的356个清洁试验
+PASS  文件内试验编号应唯一
+PASS  全部候选特征应为有限数
+PASS  特征列不得包含标签/被试/任务/行为/Decon信息
+PASS  所有外部验证的训练与测试被试应完全分离
+PASS  方向标签应仅包含L和R
+PASS  每个被试-任务-方向至少应有40个清洁试验
+PASS  应得到3个任务范围乘3组特征的9项双向汇总
+
+边界说明
+1. 频带特征来自短时ERP片段，只用于区分性表征，不作稳态节律诊断。
+2. 三个额区电极不足以唯一定位LGN、V1或左右半球源；机制模型必须表述为受约束的现象学模型。
+3. 仅有两名被试，A<->B验证是严格但小样本的外推初检，后续仍需更多被试验证。
+4. 若分类未显著高于机会水平，这也是有效结果：说明当前额区数据不能支持可靠左右解码，不能选择性汇报内部折数成绩。

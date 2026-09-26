@@ -1,0 +1,53 @@
+{
+  "seed": 20260925,
+  "repeats_per_file": 48,
+  "amplitude_multiplier": 0.8,
+  "response_window_seconds": [
+    0.15,
+    0.9
+  ],
+  "methods": [
+    "raw_mean",
+    "bandpass_mean",
+    "current_pipeline"
+  ],
+  "inputs": [
+    {
+      "file_name": "VisualCogA_Task-1.mat",
+      "n_trials": 85,
+      "amplitude_raw_units": 8.062619185606138,
+      "noise_free_filter_nrmse": 0.2150615193058865,
+      "noise_free_filter_gain": 0.9030474694729566,
+      "full_record_audit_max_error_per_unit_amplitude": 4.991396878638935e-05,
+      "mat_sha256": "02a8167b243815c3d048763528641f002eeef3b3903a31ea130b1f4e0cfc6b33"
+    },
+    {
+      "file_name": "VisualCogA_Task-2.mat",
+      "n_trials": 92,
+      "amplitude_raw_units": 9.955503416119448,
+      "noise_free_filter_nrmse": 0.21506151930588646,
+      "noise_free_filter_gain": 0.9030474694729567,
+      "full_record_audit_max_error_per_unit_amplitude": 3.584195229616141e-05,
+      "mat_sha256": "c120ef16ed6bd1a2f1e86e0ab030c6306d08e555a71359cf455744a9904cb748"
+    },
+    {
+      "file_name": "VisualCogB_Task-1.mat",
+      "n_trials": 90,
+      "amplitude_raw_units": 9.888021006339118,
+      "noise_free_filter_nrmse": 0.21506151930588646,
+      "noise_free_filter_gain": 0.9030474694729567,
+      "full_record_audit_max_error_per_unit_amplitude": 4.9692971928312685e-05,
+      "mat_sha256": "e6fb2684bddeed0f43e541a52928ce73c690a9b1f91e23a6404e0537f0ef0fc9"
+    },
+    {
+      "file_name": "VisualCogB_Task-2.mat",
+      "n_trials": 89,
+      "amplitude_raw_units": 11.492001195037073,
+      "noise_free_filter_nrmse": 0.21506151930588646,
+      "noise_free_filter_gain": 0.9030474694729566,
+      "full_record_audit_max_error_per_unit_amplitude": 3.9614179036105166e-05,
+      "mat_sha256": "c58c998880682027119548029ba92240604b9ecf4138e6c4ea3efe4522212e9d"
+    }
+  ],
+  "interpretation": "synthetic positive control, not empirical left/right evidence"
+}
